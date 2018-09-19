@@ -1,0 +1,109 @@
+@(title:String)(implicit request: play.api.mvc.RequestHeader)
+
+@main(title) {
+
+  <h1>See if you can solve next tasks</h1>
+  <h2>Assignment# <span id="assignmentId"></span>
+  </h2>
+  <form id="submitAnswers" action="/user/10/assignment/3" method="post">
+    <table id="tasksGrid">
+      <tr></tr>
+      <tr><td><input type="submit"/></td></tr>
+    </table>
+    <input id="answersPacked" name="answersPacked" type="hidden" value=""/>
+  </form>
+
+  <script type="text/javascript" src="@routes.Assignments.get(_,_)"></script>
+
+  <script type="text/javascript">
+
+      function debug(obj) {
+        var s1 = "";
+        for (attr in obj) {
+          s1 += "" + attr + " -> " + obj[attr] + "; "
+        }
+        return s1;
+      }
+
+      $("#submitAnswers").submit(function( event ) {
+        /*
+        gather the Answers into object we can post for verification
+        */
+        var answers = []
+        $("#tasksGrid td :input").each( function(in1) {
+          var $input = $( this );
+          const checkValue = $input.attr("data-task-verify");
+          const answerValue = this["value"];
+
+          answers.push({
+              answer: answerValue,
+              check: checkValue
+          });
+        })
+        const packed = JSON.stringify(answers)
+        $("#answersPacked").val(packed);
+        //event.preventDefault();
+      });
+
+      function chunkUp(tasks, tasksPerRow) {
+        var result = []
+        var nextPiece = []
+        for (var i = 0; i < tasks.length; i++) {
+          nextPiece.push(tasks[i]);
+          if (i > 0 && (i + 1) % tasksPerRow == 0) {
+            result.push(nextPiece);
+            nextPiece = []
+          }
+        }
+        if (nextPiece.length > 0) {
+          result.push(nextPiece);
+        }
+        return result
+      }
+
+      function makeCellFromEntry(entry) {
+        return  "<td>"
+                + entry.text
+                + "<input class='answer' data-task-verify='"
+                + entry.answerCheckId
+                + "' maxlength=3 size = 3></input>"
+                + "</td>"
+      }
+
+      function makeTasksTable(tasks) {
+        const chunked = chunkUp(tasks, 4);
+        const arrTaskEntries = chunked
+          .map( chunk =>
+                    "<tr>"
+                    + chunk
+                         .map( makeCellFromEntry )
+                         .join("")
+                    + "</tr>"
+               );
+        const textTableContents = arrTaskEntries.join("");
+        return textTableContents;
+      }
+
+      var tasksRoute = javascriptRoutes.controllers.Assignments.get(10, 20);
+
+      tasksRoute.ajax({
+          success: function(result) {
+              var assignmentId = result.id;
+
+              // Write display var to ticketsAvailable span
+              $("#assignmentId").text("" + assignmentId);
+
+              const contents = "<tr>" + makeTasksTable(result.tasks) + "</tr>";
+              //$("tasksGrid").append("<tr>" + contents + "</tr>")
+              $("table tr:first").after(contents);
+              //alert(contents)
+          },
+          failure: function(err) {
+              var errorText = 'There was an error';
+              $("#tasksGrid").text(errorText);
+          }
+      });
+
+  </script>
+
+}
