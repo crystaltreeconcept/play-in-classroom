@@ -17,4 +17,3 @@ TODO: uncomment SimpleFunPageControllerSpec - tests
 TODO: user/assignment passed is tracked in GET -> POST chain
 TODO: sort out with CSRF settings and routes
 
- 
