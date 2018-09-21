@@ -5,8 +5,7 @@
 
 # An example controller showing a sample home page
 # GET     /                           controllers.SimpleFunPageController.index
-
-GET     /FunTasks                   controllers.SimpleFunPageController.funTasksWelcome
+# GET     /FunTasks                   controllers.SimpleFunPageController.funTasksWelcome
 
 
 
@@ -14,11 +13,16 @@ GET     /FunTasks                   controllers.SimpleFunPageController.funTasks
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 
-
 # REST to assignments
-GET     /user/:userId/assignment/:assignmentId         controllers.Assignments.get(userId:Long, assignmentId:Long)
-POST     /user/:userId/assignment/:assignmentId         controllers.Assignments.post(userId:Long, assignmentId:Long)
+GET     /quiz         controllers.Assignments.generateUserAssignment
+POST    /quiz         controllers.Assignments.solveAssignment
+
+
+# POST     /user/:userId/assignment/:assignmentId         controllers.Assignments.post(userId:Long, assignmentId:Long)
 
 
 # this is just utility to enable the JS router
 GET     /jsr/       controllers.Application.javascriptRoutes
+
+GET     /           controllers.Default.redirect(to = "/quiz")
+

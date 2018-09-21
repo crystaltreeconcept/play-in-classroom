@@ -25,7 +25,7 @@ class SimpleFunPageController @Inject()(cc: ControllerComponents) extends Abstra
 //    Redirect(routes.SimpleFunPageController.funTasksWelcome())
 //  }
 
-  def funTasksWelcome() = Action { implicit request: play.api.mvc.RequestHeader =>
-    Ok(views.html.funTasksWelcome("Solve this assignment"))
-  }
+//  def funTasksWelcome() = Action { implicit request: play.api.mvc.RequestHeader =>
+//    Ok(views.html.funTasksWelcome("Solve this assignment"))
+//  }
 }
