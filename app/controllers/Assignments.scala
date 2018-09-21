@@ -42,18 +42,19 @@ class Assignments @Inject()(cc: ControllerComponents) extends AbstractController
     * render quiz page
     * @return
     */
-  def generateUserAssignment = Action { implicit request =>
-    val preFilledAssignment = TasksAssignment(
-      tasks = Assignment.generate(10).tasks.map( task =>
-            AnsweredUserTask(
-              task.text,
-              "",
-              task.answerCheck.predicate match {  //TODO: replace with temporary server-only generated answer ID check
-                case NumberMatchPredicate(intAnswer) => intAnswer.toLong
-              }
-            )
+  def generateUserAssignment = Action {
+    implicit request =>
+      val preFilledAssignment = TasksAssignment(
+        tasks = Assignment.generate(10).tasks.map( task =>
+              AnsweredUserTask(
+                task.text,
+                "",
+                task.answerCheck.predicate match {  //TODO: replace with temporary server-only generated answer ID check
+                  case NumberMatchPredicate(intAnswer) => intAnswer.toLong
+                }
+              )
+        )
       )
-    )
     Ok(views.html.userAnswers(userAnswersForm.fill(preFilledAssignment)))
   }
 
