@@ -4,13 +4,16 @@
 
 <!-- user answers form rendering goes here -->
 
-@helper.form(action = CSRF(routes.Assignments.solveAssignment())) {
-    @helper.repeat(answersForm("answers")) { taskFields =>
-        @helper.inputText(taskFields("taskText"), 'style -> "display: none", '_label -> "")
-        @helper.inputText(taskFields("answerText"), '_label -> ("Type in the result of: "+taskFields("taskText").value.get))
-        @helper.inputText(taskFields("answerCheckId"), 'style -> "display: none", '_label -> "")
+@main("Assignment") {
+    <h1>Please solve this assignment:</h1>
+    @form(action = CSRF(routes.Assignments.solveAssignment())) {
+        @repeat(answersForm("answers")) { taskFields =>
+            @inputText(taskFields("taskText"), 'style -> "display: none", '_label -> "")
+            @inputText(taskFields("answerText"), '_label -> ("Type in the result of: "+taskFields("taskText").value.get))
+            @inputText(taskFields("answerCheckId"), 'style -> "display: none", '_label -> "")
+        }
+        <button type="submit">Done!</button>
     }
-    <button type="submit">Done!</button>
 }
 
 @*

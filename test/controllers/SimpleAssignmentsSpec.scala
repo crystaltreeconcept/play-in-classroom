@@ -3,6 +3,7 @@ package controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import org.scalatest.mockito.MockitoSugar
+import org.scalatest.selenium.WebBrowser
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice._
 import play.api.libs.json.Json
@@ -17,7 +18,11 @@ import play.api.test._
  *
  * For more information, see https://www.playframework.com/documentation/latest/ScalaTestingWithScalaTest
  */
-class SimpleAssignmentsSpec extends PlaySpec with GuiceOneAppPerTest with Injecting with MockitoSugar {
+class SimpleAssignmentsSpec
+  extends PlaySpec
+    with GuiceOneAppPerTest
+    with Injecting
+    with MockitoSugar {
 
   implicit val sys: ActorSystem = ActorSystem("MyTest")
   implicit val mat: ActorMaterializer = ActorMaterializer()
