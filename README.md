@@ -1,5 +1,8 @@
 # Overview
 
+http://localhost:9000/      ... and solve some
+
+
 Renders fun tasks page layout
 AJAX call to get tasks
 on JSON arrival - render the table (form) with submit button
@@ -13,7 +16,6 @@ Client -> POST '/user/{id}/assignment{id}' -> 'evaluating...' -> results page w/
 
 
 TODO: sort out the application.conf
-TODO: uncomment SimpleFunPageControllerSpec - tests
+DONE: uncomment SimpleFunPageControllerSpec - tests
 TODO: user/assignment passed is tracked in GET -> POST chain
-TODO: sort out with CSRF settings and routes
-
+DONE: sort out with CSRF settings and routes

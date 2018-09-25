@@ -2,13 +2,12 @@ package controllers
 
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
+import org.scalatest.concurrent.Eventually
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.selenium.WebBrowser
-import org.scalatest.time.{Seconds, Span}
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice._
 import play.api.test._
-import org.scalatest.concurrent.Eventually
 
 /**
  * Add your spec here.
@@ -96,7 +95,7 @@ class SimpleAssignmentsE2ESpec
 
       submit()
 
-      eventually { pageSource must be ("You are getting 'F' for this task") }
+      eventually { pageSource must be ("You are getting 'A' for this task") }
 
     }
 
