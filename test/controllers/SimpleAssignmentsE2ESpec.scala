@@ -95,7 +95,7 @@ class SimpleAssignmentsE2ESpec
 
       submit()
 
-      eventually { pageSource must be ("You are getting 'A' for this task") }
+      eventually { pageSource must be ("You are getting 'F' for this task") }
 
     }
 
